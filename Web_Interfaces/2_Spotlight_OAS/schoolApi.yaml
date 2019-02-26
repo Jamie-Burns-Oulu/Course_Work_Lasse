@@ -1,0 +1,566 @@
+openapi: 3.0.0
+info:
+  title: School API
+  version: "1.0"
+  description: Simple API for school. Routes avaiable for Students, Courses and Grades.
+  contact:
+    name: Jamie Tester
+    url: https://www.SchoolAPI.com
+    email: test@email.com
+paths:
+  /students:
+    get:
+      summary: List Students
+      operationId: findStudents
+      responses:
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    address:
+                      type: string
+                    class:
+                      type: string
+                    id:
+                      type: integer
+            application/json:
+              examples:
+                response:
+                  value:
+                    - name: Sean Connery
+                      address: 1 Mainroad, Exampleland
+                      class: DIN17SP
+                      id: 1
+                    - name: Roger Moore
+                      address: 2 Newlane, Exampleland
+                      class: DIN17SP
+                      id: 2
+      description: Lists all available students from the school
+      tags:
+        - School
+    post:
+      summary: Create Students
+      operationId: createStudents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                address:
+                  type: string
+                class:
+                  type: string
+        x-examples:
+          application/json:
+            name: Peirce Brosnan
+            address: 3 Oldstreet, Exampleland
+            class: DIN17SP
+      responses:
+        "201":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: string
+            application/json:
+              examples:
+                response:
+                  value: Student added succesfully
+      description: Create a new student and add them to the school
+      tags:
+        - School
+  "/students/{studentsId}":
+    parameters:
+      - name: studentsId
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get Students
+      operationId: getStudents
+      responses:
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  address:
+                    type: string
+                  class:
+                    type: string
+                  id:
+                    type: integer
+            application/json:
+              examples:
+                response:
+                  value:
+                    name: Student Name Here
+                    address: Student Address Here
+                    class: Students Class Here
+                    id: Student ID Here
+      description: Get student information where student id matches parameter
+      tags:
+        - School
+    put:
+      summary: Update Students
+      operationId: updateStudents
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                address:
+                  type: string
+                class:
+                  type: string
+        x-examples:
+          application/json:
+            name: Updated Name Here
+            address: Updated Address Here
+            class: Updated Class Here
+      responses:
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: string
+            application/json:
+              examples:
+                response:
+                  value: Student's details updated succesfully
+      description: Update the details for student where id matches the parameter
+      tags:
+        - School
+    delete:
+      summary: Delete Students
+      operationId: deleteStudents
+      responses:
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: string
+            application/json:
+              examples:
+                response:
+                  value: Student removed succesfully
+      description: Remove student from school where the student id matches the parameter
+      tags:
+        - School
+  /courses:
+    get:
+      summary: List Courses
+      operationId: findCourses
+      responses:
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    id:
+                      type: integer
+            application/json:
+              examples:
+                response:
+                  value:
+                    - name: Course1
+                      description: This is course one
+                      id: 1
+      description: List all courses
+      tags:
+        - School
+    post:
+      summary: Create Courses
+      operationId: createCourses
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+        x-examples:
+          application/json:
+            name: Course2
+            description: This is course two
+      responses:
+        "201":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: string
+            application/json:
+              examples:
+                response:
+                  value: Course added
+      description: Create a new course
+      tags:
+        - School
+  "/courses/{coursesId}":
+    parameters:
+      - name: coursesId
+        in: path
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get course by id
+      operationId: getCourses
+      responses:
+        "200":
+          description: Course information from the matching course, found by id
+          content:
+            "*/*":
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  id:
+                    type: integer
+            application/json:
+              examples:
+                response:
+                  value:
+                    name: Course1
+                    description: This is course number one
+                    id: 1
+      description: Get course information from the school by the course's id
+      tags:
+        - School
+    put:
+      summary: Update Courses
+      operationId: updateCourses
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+        x-examples:
+          application/json:
+            name: NewCourse1
+            description: This is now new course one
+      responses:
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: string
+            application/json:
+              examples:
+                response:
+                  value: Course updated succesfully
+      description: "Updates course information when course id matches parameter. "
+      tags:
+        - School
+    delete:
+      summary: Delete Course
+      operationId: deleteCourses
+      responses:
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: string
+            application/json:
+              examples:
+                response:
+                  value: Course removed succesfully
+      description: Remove a course from the school
+      tags:
+        - School
+  /grades:
+    get:
+      summary: List Grades
+      operationId: findGrades
+      responses:
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    studentId:
+                      type: integer
+                    courseId:
+                      type: integer
+                    grade:
+                      type: integer
+            application/json:
+              examples:
+                response:
+                  value:
+                    - studentId: 1
+                      courseId: 1
+                      grade: 5
+                    - studentId: 2
+                      courseId: 1
+                      grade: 3
+      description: Lists all grades
+      tags:
+        - School
+    post:
+      summary: Create Grades
+      operationId: createGrades
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                studentId:
+                  type: integer
+                courseId:
+                  type: integer
+                grade:
+                  type: integer
+        x-examples:
+          application/json:
+            studentId: 1
+            courseId: 1
+            grade: 5
+      responses:
+        "201":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: string
+            application/json:
+              examples:
+                response:
+                  value: Grade created succesfully
+      description: Creates new grades
+      tags:
+        - School
+  "/grades/{gradesId}":
+    parameters:
+      - name: gradesId
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get Grades
+      operationId: getGrades
+      responses:
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    studentId:
+                      type: integer
+                    courseId:
+                      type: integer
+                    grade:
+                      type: integer
+            application/json:
+              examples:
+                response:
+                  value:
+                    studentId: 1
+                    courseId: 1
+                    grade: 5
+      description: Gets grades by id
+      tags:
+        - School
+    put:
+      summary: Update Grades
+      operationId: updateGrades
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                studentId:
+                  type: integer
+                courseId:
+                  type: integer
+                grade:
+                  type: integer
+      responses:
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/grades-output-detailed"
+      description: Updates grades with matching id
+      tags:
+        - School
+    delete:
+      summary: Delete Grades
+      operationId: deleteGrades
+      responses:
+        "204":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: string
+            application/json:
+              examples:
+                response:
+                  value: Grade removed succesfully
+      description: Removes grade with matching id
+      tags:
+        - School
+tags:
+  - name: ""
+  - name: School
+    description: School APi, testing tags
+servers:
+  - url: https://www.JamieSchoolApi.com/test
+components:
+  schemas:
+    students-common:
+      title: Students Common
+      description: The properties that are shared amongst all versions of the Students
+        model.
+      type: array
+      properties:
+        {}
+      items:
+        type: object
+    students-input:
+      title: Students Input
+      description: The properties that are allowed when creating or updating a Students.
+      allOf:
+        - $ref: "#/components/schemas/students-common"
+        - type: object
+          properties:
+            {}
+    students-output:
+      title: Students Output
+      description: The properties that are included when fetching a list of Students.
+      allOf:
+        - type: object
+          properties:
+            {}
+        - $ref: "#/components/schemas/students-common"
+    students-output-detailed:
+      title: Students Output Detailed
+      description: The properties that are included when fetching a single Students.
+      allOf:
+        - $ref: "#/components/schemas/students-output"
+        - type: object
+          properties:
+            {}
+    courses-common:
+      title: Courses Common
+      description: The properties that are shared amongst all versions of the Courses model.
+      type: array
+      properties:
+        {}
+      items:
+        type: object
+    courses-input:
+      title: Courses Input
+      description: The properties that are allowed when creating or updating a Courses.
+      allOf:
+        - $ref: "#/components/schemas/courses-common"
+        - type: object
+          properties:
+            {}
+    courses-output:
+      title: Courses Output
+      description: The properties that are included when fetching a list of Courses.
+      allOf:
+        - type: object
+          properties:
+            {}
+        - $ref: "#/components/schemas/courses-common"
+    courses-output-detailed:
+      title: Courses Output Detailed
+      description: The properties that are included when fetching a single Courses.
+      allOf:
+        - $ref: "#/components/schemas/courses-output"
+        - type: object
+          properties:
+            {}
+    grades-common:
+      title: Grades Common
+      description: The properties that are shared amongst all versions of the Grades model.
+      type: array
+      properties:
+        {}
+      items:
+        type: object
+    grades-input:
+      title: Grades Input
+      description: The properties that are allowed when creating or updating a Grades.
+      allOf:
+        - $ref: "#/components/schemas/grades-common"
+        - type: object
+          properties:
+            {}
+    grades-output:
+      title: Grades Output
+      description: The properties that are included when fetching a list of Grades.
+      allOf:
+        - type: object
+          properties:
+            {}
+        - $ref: "#/components/schemas/grades-common"
+    grades-output-detailed:
+      title: Grades Output Detailed
+      description: The properties that are included when fetching a single Grades.
+      allOf:
+        - $ref: "#/components/schemas/grades-output"
+        - type: object
+          properties:
+            {}
+    new-model:
+      type: object
+      properties:
+        {}
